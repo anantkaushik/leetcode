@@ -18,4 +18,6 @@ Input: 1
 Output: 0
 Explanation: The binary representation of 1 is 1 (no leading zero bits), and its complement is 0. So you need to output 0.
 """
-
+class Solution(object):
+    def findComplement(self, num):
+        return int("".join(['1' if i == '0' else '0' for i in bin(num)[2:]]),2)
