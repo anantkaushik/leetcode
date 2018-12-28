@@ -43,6 +43,7 @@ class MinStack(object):
         n = self.stack.pop()
         if self.min_stack[-1] == n:
             self.min_stack.pop()
+        return n
         
     def top(self):
         """
