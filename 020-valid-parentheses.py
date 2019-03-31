@@ -27,19 +27,16 @@ Output: true
 """
 class Solution(object):
     def isValid(self, s):
-        l = len(s)
-        if l == 0:
-            return True
-        valid_parentheses = ['()','{}','[]']
-        stack = list()
-        stack.append(s[0])
-        for i in range(1,l):
-            if stack:
-                last = stack.pop()
-                check = last + s[i]
-                if check not in valid_parentheses:
-                    stack.append(last)
-                    stack.append(s[i])
+        stack = []
+        for i in s:
+            if i == "{":
+                stack.append("}")
+            elif i == "(":
+                stack.append(")")
+            elif i == "[":
+                stack.append("]")
             else:
-                stack.append(s[i])
-        return False if stack else True
+                if not stack: return False
+                elif i != stack[-1]: return False
+                stack.pop()
+        return len(stack) == 0
