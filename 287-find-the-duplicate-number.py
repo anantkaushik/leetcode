@@ -19,9 +19,29 @@ Your runtime complexity should be less than O(n2).
 There is only one duplicate number in the array, but it could be repeated more than once.
 """
 class Solution(object):
+    # def findDuplicate(self, nums):
+    #     s = set()
+    #     for i in nums:
+    #         if i in s:
+    #             return i
+    #         s.add(i)
+    
     def findDuplicate(self, nums):
-        s = set()
-        for i in nums:
-            if i in s:
-                return i
-            s.add(i)
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        tortoise = nums[0]
+        hare = nums[0]
+        while True:
+            tortoise = nums[tortoise]
+            hare = nums[nums[hare]]
+            if tortoise == hare:
+                break
+        
+        ptr1 = nums[0]
+        ptr2 = tortoise
+        while ptr1 != ptr2:
+            ptr1 = nums[ptr1]
+            ptr2 = nums[ptr2]
+        return ptr1
