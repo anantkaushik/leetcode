@@ -1,0 +1,53 @@
+Given a linked list, swap every two adjacent nodes and return its head.
+
+You may not modify the values in the list's nodes, only nodes itself may be changed.
+Example:
+
+Given 1->2->3->4, you should return the list as 2->1->4->3.
+
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+      int i,j;
+      ListNode*prev=NULL;
+      ListNode*node=head;
+      ListNode*newHead=NULL;
+      ListNode*first=NULL;
+      ListNode*second=NULL;
+      while(node!=NULL && node->next!=NULL)
+      {
+        first=node;
+        second=node->next;
+        
+        if(prev!=NULL)
+        {
+          prev->next=second;
+        }
+        first->next=second->next;
+        second->next=first;
+        
+        if(newHead==NULL)
+        {
+          newHead=second;
+        }
+        prev=first;
+        node=first->next;
+      }
+      if(newHead==NULL)
+      {
+        return head;
+      }
+      return newHead;
+        
+    }
+};
