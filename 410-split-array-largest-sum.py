@@ -58,4 +58,4 @@ class Solution:
           count += 1
           subArraySum = n
           if count > m: return False
-      return count <= m
+      return True
