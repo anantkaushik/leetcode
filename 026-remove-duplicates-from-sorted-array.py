@@ -30,13 +30,11 @@ for (int i = 0; i < len; i++) {
     print(nums[i]);
 }
 """
-class Solution(object):
-    def removeDuplicates(self, nums):
-        if nums == []:
-            return 0
-        pos = 0
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        index = 0
         for i in range(1,len(nums)):
-            if nums[pos] != nums[i]:
-                pos+=1
-            nums[pos] = nums[i]
-        return (pos+1)
+          if nums[index] != nums[i]:
+            nums[index+1] = nums[i]
+            index += 1
+        return index+1
