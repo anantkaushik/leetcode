@@ -19,8 +19,8 @@ S and J will consist of letters and have length at most 50.
 The characters in J are distinct.
 """
 class Solution:
-    def numJewelsInStones(self, J, S):
-        summ = 0
-        for i in J:
-            summ += S.count(i)
-        return summ
+    # Time Complexity - O(S+J)
+    # Space Complexity - O(J)
+    def numJewelsInStones(self, J: str, S: str) -> int:
+        J = set(J)
+        return sum(s in J for s in S)
