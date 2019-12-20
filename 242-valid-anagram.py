@@ -17,16 +17,17 @@ You may assume the string contains only lowercase alphabets.
 Follow up:
 What if the inputs contain unicode characters? How would you adapt your solution to such case?
 """
-import collections
-class Solution(object):
-    def isAnagram(self, s, t):
+# Time Complexity - O(N)
+# Space Complexity - O(1) Because maximum size for letters dict is 26
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
         if len(s) != len(t):
             return False
-        letters = collections.defaultdict(int)
+        letters = {}
         for c in s:
-            letters[c] += 1
+            letters[c] = letters.get(c,0) + 1
         for c in t:
-            if letters[c] <= 0:
+            if letters.get(c,0) <= 0:
                 return False
             letters[c] -= 1
         return True
