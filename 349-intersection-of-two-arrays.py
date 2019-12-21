@@ -15,17 +15,16 @@ Note:
 Each element in the result must be unique.
 The result can be in any order.
 """
-class Solution(object):
-    def intersection(self, nums1, nums2):
-        """
-        :type nums1: List[int]
-        :type nums2: List[int]
-        :rtype: List[int]
-        """
-        d1,d2 = {}, {}
+class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        d = {}
+        res = []
         for n in nums1:
-            d1[n] = 0
+          d[n] = 1
+          
         for n in nums2:
-            if n in d1:
-                d2[n] = 0
-        return d2.keys()
+		  # Check if n is in dictionary and not in the result
+          if n in d and d[n]:
+            res.append(n)
+            d[n] -= 1 # It will set the value of n = 0 which will indicate we already added n in result
+        return res
