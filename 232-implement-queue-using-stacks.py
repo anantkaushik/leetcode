@@ -17,61 +17,60 @@ queue.pop();   // returns 1
 queue.empty(); // returns false
 
 Notes:
-You must use only standard operations of a stack -- which means only push to top, peek/pop from top, size, and 
+You must use only standard operations of a stack -- which means only push to top, peek/pop from top, 
+size, and 
 is empty operations are valid.
-Depending on your language, stack may not be supported natively. You may simulate a stack by using a list or deque 
+Depending on your language, stack may not be supported natively. You may simulate a stack by 
+using a list or deque 
 (double-ended queue), as long as you use only standard operations of a stack.
-You may assume that all operations are valid (for example, no pop or peek operations will be called on an empty queue).
+You may assume that all operations are valid (for example, no pop or peek operations will be 
+called on an empty queue).
 """
-class MyQueue(object):
+# Space Complexity - O(n)
+# Time Complexity - O(1) (ammortized)
+class MyQueue:
 
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        self.s1 = []
-        self.s2 = []
+        self.stack1 = []
+        self.stack2 = []
         
 
-    def push(self, x):
+    def push(self, x: int) -> None:
         """
         Push element x to the back of queue.
-        :type x: int
-        :rtype: void
         """
-        self.s1.append(x)
-        
+        self.stack1.append(x)
 
-    def pop(self):
+    def pop(self) -> int:
         """
         Removes the element from in front of queue and returns that element.
-        :rtype: int
         """
         self.shiftStack()
-        return self.s2.pop()
+        return self.stack2.pop()
         
 
-    def peek(self):
+    def peek(self) -> int:
         """
         Get the front element.
-        :rtype: int
         """
         self.shiftStack()
-        return self.s2[-1]
+        return self.stack2[-1]
         
 
-    def empty(self):
+    def empty(self) -> bool:
         """
         Returns whether the queue is empty.
-        :rtype: bool
         """
-        return True if (len(self.s1)+len(self.s2)) <= 0 else False
-
-    def shiftStack(self):
-        if len(self.s2) == 0:
-            while self.s1:
-                self.s2.append(self.s1.pop())
+        return not (self.stack1 or self.stack2)
         
+    
+    def shiftStack(self):
+      if not self.stack2:
+          while self.stack1:
+            self.stack2.append(self.stack1.pop())
 
 
 # Your MyQueue object will be instantiated and called as such:
