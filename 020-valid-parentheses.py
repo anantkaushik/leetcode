@@ -25,18 +25,17 @@ Example 5:
 Input: "{[]}"
 Output: true
 """
-class Solution(object):
-    def isValid(self, s):
+class Solution:
+    def isValid(self, s: str) -> bool:
         stack = []
-        for i in s:
-            if i == "{":
-                stack.append("}")
-            elif i == "(":
-                stack.append(")")
-            elif i == "[":
-                stack.append("]")
-            else:
-                if not stack: return False
-                elif i != stack[-1]: return False
-                stack.pop()
+        d = {
+          ')': '(',
+          '}': '{',
+          ']': '['
+        }
+        for c in s:
+          if c in d.values():
+            stack.append(c)
+          elif (not stack) or (stack.pop() != d[c]):
+              return False
         return len(stack) == 0
