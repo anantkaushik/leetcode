@@ -41,25 +41,17 @@ Note:
 All characters have an ASCII value in [35, 126].
 1 <= len(chars) <= 1000.
 """
-class Solution(object):
-    def compress(self, chars):
-        """
-        :type chars: List[str]
-        :rtype: int
-        """
-        n = len(chars)
-        if n == 0:
-            return 0
-        idx = 0
-        cnt = 0
-        for i in range(n):
-            cnt += 1
-            if (i+1>=n) or (chars[i] != chars[i+1]):
-                chars[idx] = chars[i]
-                idx += 1
-                if cnt > 1:
-                    for j in str(cnt):
-                        chars[idx] = j
-                        idx += 1
-                cnt = 0
-        return idx
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        index = count = 0
+        for i in range(len(chars)):
+            count += 1
+            if (i+1==len(chars)) or (chars[i] != chars[i+1]):
+                chars[index] = chars[i]
+                index += 1
+                if count > 1:
+                    for j in str(count):
+                        chars[index] = j
+                        index += 1
+                count = 0
+        return index
