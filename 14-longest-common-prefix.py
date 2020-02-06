@@ -16,17 +16,19 @@ Explanation: There is no common prefix among the input strings.
 Note:
 All given inputs are in lowercase letters a-z.
 """
-class Solution(object):
-    def longestCommonPrefix(self, strs):
-        """
-        :type strs: List[str]
-        :rtype: str
-        """
-        if len(strs) == 0:
-            return ""
-        for i in range(len(strs[0])):
-            c =strs[0][i]
-            for j in range(1,len(strs)):
-                if i == len(strs[j]) or strs[j][i] != c:
-                    return strs[0][:i]
-        return strs[0]
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+      if not strs:
+        return ""
+      res = strs[0]
+      length = len(res)
+      for i in range(1,len(strs)):
+        index = 0
+        while index < length and index < len(strs[i]):
+          if res[index] != strs[i][index]:
+            break
+          index += 1
+        if not index:
+          return ""
+        length = index
+      return res[:length]
