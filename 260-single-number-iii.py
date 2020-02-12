@@ -26,3 +26,5 @@ class Solution:
           else:
             res[1] ^= no
         return res
+
+# Reference -> https://leetcode.com/problems/single-number-iii/discuss/68901/Sharing-explanation-of-the-solution/263808
