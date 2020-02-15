@@ -1,8 +1,8 @@
 """
 Problem Link: https://leetcode.com/problems/fibonacci-number/
 
-The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence, such that each number is 
-the sum of the two preceding ones, starting from 0 and 1. That is,
+The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence, 
+such that each number is the sum of the two preceding ones, starting from 0 and 1. That is,
 F(0) = 0,   F(1) = 1
 F(N) = F(N - 1) + F(N - 2), for N > 1.
 Given N, calculate F(N).
@@ -25,16 +25,13 @@ Explanation: F(4) = F(3) + F(2) = 2 + 1 = 3.
 Note:
 0 ≤ N ≤ 30.
 """
+# Time Complexity: O(N)
+# Space Complexity: O(1)
 class Solution:
-    def fib(self, N):
-        """
-        :type N: int
-        :rtype: int
-        """
-        if N == 0:
-            return 0
-        l = [0,1]
-        for i in range(2,N):
-            s = l[i-1] + l[i-2]
-            l.append(s)
-        return l[N-1] + l[N-2]
+    def fib(self, N: int) -> int:
+        if N <= 1:
+          return N
+        a, b = 0, 1
+        for _ in range(2, N+1):
+          a, b = b, a + b
+        return b
