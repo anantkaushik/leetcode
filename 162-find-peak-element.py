@@ -1,4 +1,6 @@
 """
+Problem Link: https://leetcode.com/problems/find-peak-element/
+
 A peak element is an element that is greater than its neighbors.
 Given an input array nums, where nums[i] ≠ nums[i+1], find a peak element and return its index.
 The array may contain multiple peaks, in that case return the index to any one of the peaks is fine.
@@ -18,6 +20,8 @@ Explanation: Your function can return either index number 1 where the peak eleme
 Note:
 Your solution should be in logarithmic complexity.
 """
+# Time Complexity: O(logN)
+# Space Complexity: O(1)
 class Solution(object):
     def findPeakElement(self, nums):
         first,last = 0,len(nums) - 1
@@ -28,3 +32,14 @@ class Solution(object):
             else:
                 first = mid + 1
         return first
+
+# Time Complexity: O(N)
+# Space Complexity: O(1)
+class Solution1:
+    def findPeakElement(self, nums: List[int]) -> int:
+      if len(nums) == 1:
+        return 0
+      for i in range(1, len(nums)-1):
+        if nums[i] > nums[i-1] and nums[i] > nums[i+1]:
+          return i
+      return 0 if nums[0] > nums[1] else len(nums)-1
