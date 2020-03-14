@@ -44,22 +44,16 @@ trust[i] are all different
 trust[i][0] != trust[i][1]
 1 <= trust[i][0], trust[i][1] <= N
 """
-class Solution(object):
-    def findJudge(self, N, trust):
-        """
-        :type N: int
-        :type trust: List[List[int]]
-        :rtype: int
-        """
-        if not trust:
-            return 1
-        d = {}
-        for i in range(1,N+1):
-            d[i] = 0
-        for t in trust:
-            d[t[0]] += 1
-            d[t[1]] -= 1
-        for k,v in d.items():
-            if v == -(N-1):
-                return k
-        return -1
+# Time Complexity: O(N+T), T -> len(trust)
+# Space Complexity: O(N) 
+class Solution:
+    def findJudge(self, N: int, trust: List[List[int]]) -> int:
+      graph = [0] * (N + 1)
+      for t in trust:
+          graph[t[0]] += 1
+          graph[t[1]] -= 1
+          
+      for index in range(1, len(graph)):
+          if graph[index] == -(N-1):
+              return index
+      return -1
