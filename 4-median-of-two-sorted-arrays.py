@@ -41,5 +41,3 @@ class Solution:
             end = midX - 1
           else:
             start = midX + 1
-                    minRight = min(nums1[partitionX],nums2[partitionY])
-                return (maxLeft+minRight)/2
