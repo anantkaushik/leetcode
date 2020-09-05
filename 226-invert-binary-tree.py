@@ -34,7 +34,7 @@ Output:
 class Solution:
     def invertTree(self, root: TreeNode) -> TreeNode:
         if not root:
-          return None
+          return 
         root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
         return root
 
@@ -44,9 +44,11 @@ class Solution:
 class SolutionIterative:
     def invertTree(self, root: TreeNode) -> TreeNode:
         if not root:
-          return None
+          return 
+
         queue = []
         queue.append(root)
+        
         while queue:
           cur = queue.pop(0)
           cur.left, cur.right = cur.right, cur.left
