@@ -28,41 +28,46 @@ Note: Do not use class member/global/static variables to store states. Your seri
 #         self.left = None
 #         self.right = None
 
+
 class Codec:
 
     def serialize(self, root):
         """Encodes a tree to a single string.
-
+        
         :type root: TreeNode
         :rtype: str
         """
-        def serializeHelper(root, string):
-            if root is None:
-                string += "None,"
-            else:
-                string += str(root.val) + ","
-                string = serializeHelper(root.left, string)
-                string = serializeHelper(root.right, string)
-            return string
-        return serializeHelper(root,"")
-
+        if not root:
+            return None
+        res = root.val
+        a = self.serialize(root.left)
+        b = self.serialize(root.right)
+        return f"{res},{a},{b}"
+        
 
     def deserialize(self, data):
         """Decodes your encoded data to tree.
-
+        
         :type data: str
         :rtype: TreeNode
         """
-        def deserializeHeper(l):
-            if l[0] == "None":
-                l.pop(0)
-                return None
-            root = TreeNode(l[0])
-            l.pop(0)
-            root.left = deserializeHeper(l)
-            root.right = deserializeHeper(l)
+        if not data:
+            return
+        
+        def helper(data):
+            if not data:
+                return
+            
+            d = data.pop(0)
+            if d == "None":
+                return
+            
+            root = TreeNode(d)
+            root.left = helper(data)
+            root.right = helper(data)
             return root
-        return deserializeHeper(data.split(','))
+        
+        return helper(data.split(","))
         
 # Your Codec object will be instantiated and called as such:
 # codec = Codec()
