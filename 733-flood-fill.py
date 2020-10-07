@@ -30,6 +30,25 @@ The value of each color in image[i][j] and newColor will be an integer in [0, 65
 """
 class Solution:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+        
+        def dfs(x, y):
+            if x >= 0 and x < len(image) and y >= 0 and y < len(image[0]) and image[x][y] == color:
+                image[x][y] = newColor
+                
+                dfs(x-1, y)
+                dfs(x, y-1)
+                dfs(x+1, y)
+                dfs(x, y+1)
+        
+        color = image[sr][sc]
+        if color != newColor:
+            dfs(sr, sc)
+        return image 
+
+
+        
+class Solution1:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
         m, n = len(image), len(image[0])
         color = image[sr][sc]
         
