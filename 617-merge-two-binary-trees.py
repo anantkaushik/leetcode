@@ -39,3 +39,30 @@ class Solution:
         t1.left = self.mergeTrees(t1.left, t2.left)
         t1.right = self.mergeTrees(t1.right, t2.right)
         return t1
+
+
+class Solution1:
+    def mergeTrees(self, t1: TreeNode, t2: TreeNode) -> TreeNode:
+        if not t1 or not t2:
+            return t1 or t2
+        
+        queue = [[t1, t2]]
+        while queue:
+            node1, node2 = queue.pop(0)
+            
+            if not node2:
+                continue
+            
+            node1.val += node2.val
+            
+            if node1.left:
+                queue.append([node1.left, node2.left])
+            else:
+                node1.left = node2.left
+                
+            if node1.right:
+                queue.append([node1.right, node2.right])
+            else:
+                node1.right = node2.right
+        
+        return t1
