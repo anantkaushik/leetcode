@@ -44,3 +44,59 @@ class SolutionIterative:
           stack.append(node.right)
       print(leaves)
       return leaves
+
+class Solution1:
+    def leafSimilar(self, root1: TreeNode, root2: TreeNode) -> bool:
+        stack1, stack2 = [root1], [root2]
+        while stack1 and stack2:
+            if self.dfs(stack1) != self.dfs(stack2):
+                return False
+        
+        return len(stack1) == len(stack2)
+    
+    def dfs(self, stack):
+        while stack:
+            node = stack.pop()
+            if node.right:
+                stack.append(node.right)
+            if node.left:
+                stack.append(node.left)
+                
+            if not node.left and not node.right:
+                return node.val
+
+
+class Solution2:
+    def leafSimilar(self, root1: TreeNode, root2: TreeNode) -> bool:
+        
+        def preorder(root):
+            if not root:
+                return []
+            
+            stack = [root]
+            leaves = []
+            while stack:
+                node = stack.pop()
+                
+                if node.right:
+                    stack.append(node.right)
+                if node.left:
+                    stack.append(node.left)
+                
+                if not node.left and not node.right:
+                    leaves.append(node.val)
+            
+            return leaves
+        
+        def is_same(l1, l2):
+            if len(l1) != len(l2):
+                return False
+            
+            for i in range(len(l1)):
+                if l1[i] != l2[i]:
+                    return False
+            return True
+        
+        root1_leaves = preorder(root1)
+        root2_leaves = preorder(root2)
+        return is_same(root1_leaves, root2_leaves)

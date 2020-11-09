@@ -44,3 +44,30 @@ class Solution(object):
         if l.val == r.val:
             return self.isMirror(l.left, r.right) and self.isMirror(l.right, r.left)
         return False
+
+class Solution1:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        def helper(root1, root2):
+            if not root1 or not root2:
+                return root1 == root2
+            
+            return root1.val == root2.val and helper(root1.left, root2.right) and helper(root1.right, root2.left)
+        
+        return helper(root, root)
+
+class Solution2:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        stack = [[root, root]]
+        
+        while stack:
+            node1, node2 = stack.pop()
+            
+            if not node1 and not node2:
+                continue
+            if not node1 or not node2 or node1.val != node2.val:
+                return False
+            
+            stack.append([node1.left, node2.right])
+            stack.append([node1.right, node2.left])
+            
+        return True
