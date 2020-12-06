@@ -15,16 +15,56 @@ Output: "bb"
 """
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-      res = ""
-      for i in range(len(s)):
-        # self.helper(s,i,i) for cases like # aba
-        # self.helper(s,i,i+1) for cases like # abba  
-        res = max(self.helper(s,i,i), self.helper(s,i,i+1), res, key=len)
-      return res
-       
+        if len(s) < 2:
+            return s
         
-    def helper(self,s,l,r):
-      while l >= 0 and r < len(s) and s[l] == s[r]:
-        l -= 1
-        r += 1
-      return s[l+1:r]
+        self.start_index = self.max_len = -1
+        
+        for i in range(len(s)):
+            self.find_palindrome(s, i, i)
+            self.find_palindrome(s, i, i+1)
+        
+        return s[self.start_index: self.start_index + self.max_len]
+    
+    def find_palindrome(self, s, left_index, right_index):
+        while left_index >= 0 and right_index < len(s) and s[left_index] == s[right_index]:
+            left_index -= 1
+            right_index += 1
+        if self.max_len < right_index - left_index -1:
+            self.start_index = left_index + 1
+            self.max_len = right_index - left_index - 1
+
+
+class Solution1:
+    def longestPalindrome(self, s: str) -> str:
+        if len(s) < 2:
+            return s
+        
+        dp = [[False] * len(s) for _ in range(len(s))]
+        
+        start_index = max_len = 0
+        for i in range(len(s)):
+            for j in range(i+1):
+                dp[j][i] = ((s[i]==s[j]) and (i-j<=2 or dp[j+1][i-1]))
+                
+                if dp[j][i] and i - j + 1 > max_len:
+                    max_len = i - j + 1
+                    start_index = j
+                    
+        return s[start_index: start_index + max_len]
+        
+
+class Solution2:
+    def longestPalindrome(self, s: str) -> str:
+        if len(s) < 2:
+            return s
+        start_index = max_len = 0
+        for i in range(len(s)):
+            for j in range(len(s)-1, i-1, -1):
+                if s[i:j+1] == (s[j:i-1:-1] if i > 0 else s[j::-1]):
+                    if max_len < j - i + 1:
+                        start_index = i
+                        max_len = j - i + 1
+                    break
+        return s[start_index: start_index + max_len]
+            
