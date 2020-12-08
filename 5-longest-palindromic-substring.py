@@ -15,6 +15,30 @@ Output: "bb"
 """
 class Solution:
     def longestPalindrome(self, s: str) -> str:
+        new_s = '#'.join('^{}$'.format(s))
+        n = len(new_s)
+        p = [0] * n
+        c = r = 0
+        
+        for i in range (1, n-1):
+            if i < r:
+                mirr = 2*c - i # equals to i' = C - (i-C)
+                p[i] = min(r - i, p[mirr]) 
+                
+            while new_s[i + 1 + p[i]] == new_s[i - 1 - p[i]]:
+                p[i] += 1
+    
+            # If palindrome centered at i expand past R,
+            # adjust center based on expanded palindrome.
+            if i + p[i] > r:
+                c, r = i, i + p[i]
+    
+        maxLen, centerIndex = max((n, i) for i, n in enumerate(p))
+        return s[(centerIndex  - maxLen)//2: (centerIndex  + maxLen)//2]
+
+
+class Solution1:
+    def longestPalindrome(self, s: str) -> str:
         if len(s) < 2:
             return s
         
@@ -35,7 +59,7 @@ class Solution:
             self.max_len = right_index - left_index - 1
 
 
-class Solution1:
+class Solution2:
     def longestPalindrome(self, s: str) -> str:
         if len(s) < 2:
             return s
@@ -54,7 +78,7 @@ class Solution1:
         return s[start_index: start_index + max_len]
         
 
-class Solution2:
+class Solution3:
     def longestPalindrome(self, s: str) -> str:
         if len(s) < 2:
             return s
