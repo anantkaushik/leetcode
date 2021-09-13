@@ -17,29 +17,31 @@ Note:
 -10000 <= A[i] <= 10000
 A is sorted in non-decreasing order.
 """
-class Solution(object):
-    def sortedSquares(self, A):
-        """
-        :type A: List[int]
-        :rtype: List[int]
-        """
-        l = len(A)
-        j = 0
-        while j < l and A[j] < 0:
-            j += 1
-        i = j - 1
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        start_point = len(nums) - 1
+        for i in range(len(nums)):
+            if nums[i] >= 0:
+                start_point = i
+                break
+        
         res = []
-        while i >= 0 and j < l:
-            if A[i]**2 < A[j]**2:
-                res.append(A[i]**2)
-                i -= 1
+        left, right = start_point - 1, start_point
+        
+        while left >= 0 and right < len(nums):
+            if abs(nums[left]) > nums[right]:
+                res.append(nums[right] ** 2)
+                right += 1 
             else:
-                res.append(A[j]**2)
-                j += 1
-        while i >= 0:
-            res.append(A[i]**2)
-            i -= 1
-        while j < l:
-            res.append(A[j]**2)
-            j += 1
+                res.append(nums[left] ** 2)
+                left -= 1
+        
+        while left >= 0:
+            res.append(nums[left] ** 2)
+            left -= 1
+        
+        while right < len(nums):
+            res.append(nums[right] ** 2)
+            right += 1
+        
         return res
