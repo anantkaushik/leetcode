@@ -16,11 +16,16 @@ Input: numbers = [2,7,11,15], target = 9
 Output: [1,2]
 Explanation: The sum of 2 and 7 is 9. Therefore index1 = 1, index2 = 2.
 """
-class Solution(object):
-    def twoSum(self,numbers, target):
-        n = {}
-        for index,num in enumerate(numbers):
-            temp = target - num
-            if temp in n:
-                return [n[temp]+1,index+1]
-            n[num] = index
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        start, end = 0, len(numbers) - 1
+        
+        while start < end:
+            cur_sum = numbers[start] + numbers[end]
+            
+            if cur_sum == target:
+                return [start + 1, end + 1]
+            elif cur_sum < target:
+                start += 1
+            else:
+                end -= 1
