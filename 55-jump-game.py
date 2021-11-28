@@ -16,9 +16,19 @@ Output: false
 Explanation: You will always arrive at index 3 no matter what. Its maximum
              jump length is 0, which makes it impossible to reach the last index.
 """
-class Solution3:
-    # Time Complexity: O(n)
-    # Space Complexity: O(1)
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        max_reach = nums[0]
+
+        for index in range(1, len(nums)):
+            if index > max_reach:
+                break
+            max_reach = max(max_reach, index + nums[index])
+
+        return max_reach >= len(nums) - 1
+
+
+class Solution1:
     def canJump(self, nums: List[int]) -> bool:
       lastPos = len(nums) - 1
       for i in range(len(nums)-1, -1, -1):
