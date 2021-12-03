@@ -14,17 +14,29 @@ Input: [-2,0,-1]
 Output: 0
 Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
 """
-class Solution(object):
-    def maxProduct(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        maxp = minp = res = nums[0]
-        for i in range(1,len(nums)):
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        max_prod = min_prod = res = nums[0]
+        
+        for i in range(1, len(nums)):
             if nums[i] < 0:
-                maxp, minp = minp, maxp
-            maxp = max(nums[i], nums[i]*maxp)
-            minp = min(nums[i], nums[i]*minp)
-            res = max(res, maxp)
+                max_prod, min_prod = min_prod, max_prod
+                
+            max_prod = max(nums[i], nums[i] * max_prod)
+            min_prod = min(nums[i], nums[i] * min_prod)
+            res = max(res, max_prod)
+            
         return res
+
+# TLE
+class Solution1:
+    def maxProduct(self, nums: List[int]) -> int:
+        max_prod = float('-inf')
+        
+        for i in range(len(nums)):
+            cur_prod = 1
+            for j in range(i, len(nums)):
+                cur_prod *= nums[j]
+                max_prod = max(max_prod, cur_prod)
+        
+        return max_prod
