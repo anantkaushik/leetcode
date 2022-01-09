@@ -19,8 +19,7 @@ Note:
 """
 class Solution:
     def maxScoreSightseeingPair(self, A: List[int]) -> int:
-      startMax = 0
-      endMax = 0
+      startMax = endMax = 0
       for i in range(len(A)-1):
         startMax = max(startMax, A[i]+i)
         endMax = max(endMax,startMax + A[i+1]-(i+1))
@@ -34,10 +33,11 @@ class Solution:
     # Every turn, decrement max_ito account for j - i.
     # Track and return the maximum score.
     def maxScoreSightseeingPair_alternative(self, A: List[int]) -> int:
-      max_i = A[0] - 1
-      res = 0
-      for j in range(1,len(A)):
-        res = max(res,A[j]+max_i)
-        max_i = max(max_i, A[j])
-        max_i -= 1
-      return res
+      cur_max = values[0] - 1
+      ans = 0
+      
+      for index in range(1, len(values)):
+          ans = max(ans, cur_max + values[index])
+          cur_max = max(cur_max - 1, values[index] - 1)
+      
+      return ans
