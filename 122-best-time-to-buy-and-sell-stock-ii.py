@@ -24,14 +24,12 @@ Input: [7,6,4,3,1]
 Output: 0
 Explanation: In this case, no transaction is done, i.e. max profit = 0.
 """
-class Solution(object):
-    def maxProfit(self, prices):
-        """
-        :type prices: List[int]
-        :rtype: int
-        """
-        maxProfit = 0
-        for i in range(1,len(prices)):
-            if prices[i-1] < prices[i]:
-                maxProfit += prices[i] - prices[i-1]
-        return maxProfit
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        profit = 0
+        
+        for index in range(1, len(prices)):
+            if prices[index] > prices[index-1]:
+                profit += prices[index] - prices[index-1]
+        
+        return profit
