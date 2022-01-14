@@ -27,6 +27,21 @@ Constraints:
 s and wordDict[i] consist of only lowercase English letters.
 All the strings of wordDict are unique.
 """
+# Time Complexity: O(N^2)
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        wordDict = set(wordDict)
+        
+        w = [False] * (len(s) + 1)
+        w[0] = True
+        
+        for i in range(1, len(s)+1):
+            for j in range(i):
+                if w[j] and s[j:i] in wordDict:
+                    w[i] = True
+                    break
+        return w[-1]
+
 # TLE - O (2^N)
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
