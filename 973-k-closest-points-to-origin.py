@@ -29,7 +29,27 @@ Constraints:
 -104 < xi, yi < 104
 """
 import math
+import heap
 
+
+# Time Complexity: NLOGK
+class Solution:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        heap = [(-self.getDistance(points[index]), index) for index in range(k)]
+        
+        heapq.heapify(heap)
+        
+        for index in range(k, len(points)):
+            heapq.heappushpop(heap, (-self.getDistance(points[index]), index))
+        
+        return [points[index] for _, index in heap]
+    
+    def getDistance(self, point):
+        x, y = point
+        return math.sqrt((x**2) + (y**2))
+
+
+# Time Complexity: NLogN
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
         distance = []
